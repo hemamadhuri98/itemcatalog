@@ -1,0 +1,58 @@
+<html>
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class = 'st'>
+		<h1>{{ store.name }}</h1>
+		{% with messages = get_flashed_messages() %}
+      {% if messages %}  
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+    {% if details !=[] %}
+		<a href = "{{url_for('newOrnament', store_id = store.id )}}">Create New Ornament</a>
+		</br></br>
+	 {% for i in details %}
+			{% if i.ornamenttype == 'Gold'%}
+			<h2>Gold</h2>	
+				<p>{{i.name}}</p>
+				<p>{{i.description}}</p>
+				<p>{{i.price}}</p>
+				<a href='{{url_for('editOrnament', store_id = store.id, ornament_id=i.id ) }}'>Edit</a></br>
+				<a href='{{url_for('deleteOrnament', store_id = store.id, ornament_id=i.id ) }}'>Delete</a></br></br>
+			{% endif %}
+		</br>
+			{% if i.ornamentype == 'Platinum' %}
+			<h2>Platinum</h2>
+				<p>{{i.name}}</p>
+				<p>{{i.description}}</p>
+				<p>{{i.price}}</p>
+				<a href='{{url_for('editOrnament', store_id = store.id, ornament_id=i.id ) }}'>Edit</a></br>
+				<a href='{{url_for('deleteOrnament', store_id = store.id, ornament_id=i.id ) }}'>Delete</a>
+				</br>
+			{% endif %}
+	</br>
+	</br>
+		
+			{% if i.ornamenttype == 'Silver' %}
+			<h2>Silver</h2>
+				<p>{{i.name}}</p>
+				<p>{{i.description}}</p>
+				<p>{{i.price}}</p>
+				<a href='{{url_for('editOrnament', store_id = store.id, ornament_id=i.id ) }}'>Edit</a>
+				<a href='{{url_for('deleteOrnament', store_id = store.id, ornament_id=i.id ) }}'>Delete</a>
+    </br>
+			{% endif %} 
+	{% endfor %}
+	{% else %}
+		<p> You currently have no Ornament details. <p>
+		<a href = "{{url_for('newOrnament', store_id = store.id )}}">Create New Ornament</a>
+	{% endif %}
+</div>
+	</body>
+</html>
